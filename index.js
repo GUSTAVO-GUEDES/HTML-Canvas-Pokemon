@@ -8,7 +8,7 @@ context.fillStyle = 'white'
 context.fillRect(0, 0, canvas.width, canvas.height)
 
 const backgroundSprite = new Sprite('./img/Pallet Town.png')
-backgroundSprite.setPosition({x: -545, y: -700})
+backgroundSprite.setPosition({x: -545, y: -710})
 
 const player = new Player('./img/Player/playerDown.png')
 

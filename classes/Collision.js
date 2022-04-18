@@ -4,8 +4,8 @@ class Collission{
         this.boundaries = []
         this.player = player
         this.coliding = {
-            up: false,
             down: false,
+            up: false,
             right: false,
             left: false
         }
@@ -16,39 +16,70 @@ class Collission{
     }
 
     createBoundaries({width, height}, {x, y}){
-        // this.collisionsMap.forEach((row, i)=>{
-        //     row.forEach((item, j)=>{
-        //         if(item != null && item != undefined && item != 0){
-        //             this.boundaries.push(new Boundary({
-        //                 position: {x: j * height + x, y: i * width + y},
-        //                 size: {width, height}
-        //             }))
-        //         }   
-        //     })
-        // })
-        this.boundaries.push(new Boundary({
-            position: {x: 20* 48+ backgroundSprite.position.x, y: 20*48+ backgroundSprite.position.y},
-            size: {width, height}
-        }))
+        this.collisionsMap.forEach((row, i)=>{
+            row.forEach((item, j)=>{
+                if(item != null && item != undefined && item != 0){
+                    this.boundaries.push(new Boundary({
+                        position: {x: j * height + x, y: i * width + y},
+                        size: {width, height}
+                    }))
+                }   
+            })
+        })
+        // this.boundaries.push(new Boundary({
+        //     position: {x: 20* 48+ backgroundSprite.position.x, y: 20*48+ backgroundSprite.position.y},
+        //     size: {width, height}
+        // }))
     }
 
     draw(){
+        let up = false
+        let right = false
+        let left = false
+        let down = false
+
         this.boundaries.forEach((boundarie)=>{
             boundarie.draw()
 
-            this.checkIfColide(boundarie)
-            
+            if(this.player.position.y <= boundarie.position.y + boundarie.size.height + 5&&
+                this.player.position.x >= boundarie.position.x - (this.player.img_obj.width/4) &&
+                this.player.position.x <= boundarie.position.x + (this.player.img_obj.width/4) &&
+                this.player.position.y >= boundarie.position.y
+            )
+                up = true
+
+            if(this.player.position.y >= boundarie.position.y - this.player.img_obj.height +2&&
+                this.player.position.y <= boundarie.position.y + this.player.img_obj.height/2 &&
+                this.player.position.x >= boundarie.position.x &&
+                this.player.position.x <= boundarie.position.x + (this.player.img_obj.width/4) +5
+            )
+                left = true
+
+            if(this.player.position.x >= boundarie.position.x - (this.player.img_obj.width/4 +3)&&
+                this.player.position.y >= boundarie.position.y - this.player.img_obj.height+2 &&
+                this.player.position.y <= boundarie.position.y + this.player.img_obj.height/2 &&
+                this.player.position.x <= boundarie.position.x
+            )
+                right = true
+
+            if(this.player.position.y >= boundarie.position.y - this.player.img_obj.height && 
+                this.player.position.x <= boundarie.position.x + (this.player.img_obj.width/4) &&
+                this.player.position.x >= boundarie.position.x - (this.player.img_obj.width/4) &&
+                this.player.position.y <= boundarie.position.y + boundarie.size.height
+                )
+                down = true
+                
         })
-    }
 
-    checkIfColide(boundarie){
-        // console.log('boundarie: '+boundarie.position.x+'\nPlayer: '+ this.player.position.x+'\nsize: '+(this.player.img_obj.width/4)/2)
-        
-            // this.player.position.y <= boundarie.position.y
-        
-            this.coliding.left = this.player.position.x <= boundarie.position.x +(this.player.img_obj.width/4)
-    }
 
+        console.log(`Up: ${up}\nDown: ${down}\nLeft: ${left}\nRight: ${right}`)
+        
+        this.coliding.up = up
+        this.coliding.down = down
+        this.coliding.left = left
+        this.coliding.right = right
+    }
+    
     moveCollision(direction, vel){
         switch(direction.toUpperCase()){
             case 'UP':

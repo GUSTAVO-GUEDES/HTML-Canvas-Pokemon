@@ -20,15 +20,14 @@ class KeysMap{
                     if(!collision.coliding.up){
                         this.collision.moveCollision('UP', this.player.speed)
                         this.backgroud.moveSprite('UP', this.player.speed)
-                    }
-                        
+                    }      
                 }
             },
             {
                 name:'a',
                 pressed: false,
                 action: (index) =>{
-                    if(!collision.coliding.left){
+                   if(!collision.coliding.left){
                         this.collision.moveCollision('LEFT', this.player.speed)
                         this.backgroud.moveSprite('LEFT', this.player.speed)
                     }
