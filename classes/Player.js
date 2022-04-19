@@ -1,21 +1,26 @@
 class Player extends Mob{
-    constructor(src){
-        super(src)
+    constructor(src, img_cells){
+        super(src, null, null, null, null, img_cells)
+
+        this.img_cells = img_cells
+        this.frame = 0
     }
     setPlayerSpriteProps(){
         this.setPosition({
-            x: canvas.width/2 - (this.img_obj.width/4) /2, 
+            x: canvas.width/2 - (this.img_obj.width/this.img_cells) /2, 
             y: canvas.height/2 - this.img_obj.height/2
         })
 
         this.setSpeed(4)
 
+        this.cell_size = this.img_obj.width/this.img_cells
+
         this.setCropPosition({
             cropStartX: 0, 
-            cropStartY: 0,
-            cropEndX: this.img_obj.width/4,
+            cropStartY: 2,
+            cropEndX: this.cell_size,
             cropEndY: this.img_obj.height, 
-            positionX: this.img_obj.width/4,
+            positionX: this.cell_size,
             positionY: this.img_obj.height
         })
     }

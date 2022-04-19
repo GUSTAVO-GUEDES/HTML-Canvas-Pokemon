@@ -1,8 +1,11 @@
 class Collission{
-    constructor(collsion, mapWidth, player){
+    constructor(collsion, mapWidth, player, batlleZone = false){
         this.collisionsMap = []
         this.boundaries = []
         this.player = player
+
+        this.batlleZone = batlleZone
+
         this.coliding = {
             down: false,
             up: false,
@@ -26,8 +29,10 @@ class Collission{
                 }   
             })
         })
+
+        // this.collisionsMap[20][25] = 1024
         // this.boundaries.push(new Boundary({
-        //     position: {x: 20* 48+ backgroundSprite.position.x, y: 20*48+ backgroundSprite.position.y},
+        //     position: {x: 25* 48+ backgroundSprite.position.x, y: 20*48+ backgroundSprite.position.y},
         //     size: {width, height}
         // }))
     }
@@ -41,38 +46,49 @@ class Collission{
         this.boundaries.forEach((boundarie)=>{
             boundarie.draw()
 
-            if(this.player.position.y <= boundarie.position.y + boundarie.size.height + 5&&
-                this.player.position.x >= boundarie.position.x - (this.player.img_obj.width/4) &&
-                this.player.position.x <= boundarie.position.x + (this.player.img_obj.width/4) &&
-                this.player.position.y >= boundarie.position.y
-            )
-                up = true
+            var s = 1
+            var j = -5
 
-            if(this.player.position.y >= boundarie.position.y - this.player.img_obj.height +2&&
-                this.player.position.y <= boundarie.position.y + this.player.img_obj.height/2 &&
-                this.player.position.x >= boundarie.position.x &&
-                this.player.position.x <= boundarie.position.x + (this.player.img_obj.width/4) +5
+            if(this.player.position.y <= boundarie.position.y + boundarie.size.height + s &&
+                this.player.position.y >= boundarie.position.y - boundarie.size.height && 
+                this.player.position.x >= boundarie.position.x - boundarie.size.width + 20 &&
+                this.player.position.x <= boundarie.position.x + boundarie.size.width -20
+            )
+                    up = true
+    
+            if(this.player.position.y <= boundarie.position.y + boundarie.size.height &&
+                this.player.position.y >= boundarie.position.y - boundarie.size.height  - 12 && 
+                this.player.position.x >= boundarie.position.x - boundarie.size.width + 20&&
+                this.player.position.x <= boundarie.position.x + boundarie.size.width + j
             )
                 left = true
 
-            if(this.player.position.x >= boundarie.position.x - (this.player.img_obj.width/4 +3)&&
-                this.player.position.y >= boundarie.position.y - this.player.img_obj.height+2 &&
-                this.player.position.y <= boundarie.position.y + this.player.img_obj.height/2 &&
-                this.player.position.x <= boundarie.position.x
+            if(this.player.position.y <= boundarie.position.y + boundarie.size.height &&
+                this.player.position.y >= boundarie.position.y - boundarie.size.height - 12 && 
+                this.player.position.x >= boundarie.position.x - boundarie.size.width - j &&
+                this.player.position.x <= boundarie.position.x + boundarie.size.width - 14
             )
                 right = true
-
-            if(this.player.position.y >= boundarie.position.y - this.player.img_obj.height && 
-                this.player.position.x <= boundarie.position.x + (this.player.img_obj.width/4) &&
-                this.player.position.x >= boundarie.position.x - (this.player.img_obj.width/4) &&
-                this.player.position.y <= boundarie.position.y + boundarie.size.height
+            
+            if(!this.batlleZone){
+                if(this.player.position.y <= boundarie.position.y + boundarie.size.height &&
+                    this.player.position.y >= boundarie.position.y - this.player.img_obj.height - s && 
+                    this.player.position.x >= boundarie.position.x - boundarie.size.width + 20&&
+                    this.player.position.x <= boundarie.position.x + boundarie.size.width - 20
                 )
-                down = true
-                
+                    down = true
+            }else{
+                if(this.player.position.y <= boundarie.position.y + boundarie.size.height - this.player.img_obj.height&&
+                    this.player.position.y >= boundarie.position.y - this.player.img_obj.height - s && 
+                    this.player.position.x >= boundarie.position.x - boundarie.size.width + 20&&
+                    this.player.position.x <= boundarie.position.x + boundarie.size.width - 20  
+                )
+                    down = true
+            }
         })
 
 
-        console.log(`Up: ${up}\nDown: ${down}\nLeft: ${left}\nRight: ${right}`)
+        // console.log(`Up: ${up}\nDown: ${down}\nLeft: ${left}\nRight: ${right}`)
         
         this.coliding.up = up
         this.coliding.down = down

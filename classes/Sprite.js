@@ -1,5 +1,5 @@
 class Sprite{
-    constructor(src, cropPosition = null){
+    constructor(src, cropPosition = null, frame = null, cell_size = null, img_cells = 1){
         const image = new Image()
         image.src = src
 
@@ -7,6 +7,13 @@ class Sprite{
 
         this.cropPosition = cropPosition
         this.position = {}
+
+        this.frame = frame
+        this.cell_size = cell_size
+        this.img_cells = img_cells
+        this.elapsed = 0
+
+        this.moving = false
     }
 
     draw(){
@@ -19,7 +26,7 @@ class Sprite{
         :
             context.drawImage(
                 this.img_obj,
-                this.cropPosition.cropStartX, 
+                this.cell_size *this.frame+0.5, 
                 this.cropPosition.cropStartY,
                 this.cropPosition.cropEndX,
                 this.cropPosition.cropEndY,
@@ -28,6 +35,20 @@ class Sprite{
                 this.cropPosition.positionX,
                 this.cropPosition.positionY
             )
+
+        if(this.moving){
+            this.elapsed++
+
+            if(this.elapsed % 10 === 0 ){
+                if(this.frame < this.img_cells-1)
+                    this.frame++
+                else
+                    this.frame = 0
+            
+            }
+        }else{
+            this.frame = 0
+        }
     }
 
     moveSprite(direction, vel){
