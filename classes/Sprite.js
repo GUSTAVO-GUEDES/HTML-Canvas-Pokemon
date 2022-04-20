@@ -1,5 +1,5 @@
 class Sprite{
-    constructor(src, cropPosition = null, frame = null, cell_size = null, img_cells = 1){
+    constructor(src, cropPosition = null, frame = null, cell_size = null, img_cells = 1, shadow = false){
         const image = new Image()
         image.src = src
 
@@ -14,9 +14,23 @@ class Sprite{
         this.elapsed = 0
 
         this.moving = false
+
+        this.shadow = shadow
     }
 
     draw(){
+        if(this.shadow){
+            context.shadowColor= '#000'
+            context.shadowBlur = 40
+            context.shadowOffsetX = 10
+            context.shadowOffsetY = 20
+        }else{
+            context.shadowColor= '#000'
+            context.shadowBlur = 0
+            context.shadowOffsetX = 0
+            context.shadowOffsetY = 0
+        }
+
         !this.cropPosition?
             context.drawImage(
                 this.img_obj,

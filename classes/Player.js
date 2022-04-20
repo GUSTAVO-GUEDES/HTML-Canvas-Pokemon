@@ -1,6 +1,6 @@
 class Player extends Mob{
     constructor(src, img_cells){
-        super(src, null, null, null, null, img_cells)
+        super(src, null, null, null, img_cells, false)
 
         this.img_cells = img_cells
         this.frame = 0

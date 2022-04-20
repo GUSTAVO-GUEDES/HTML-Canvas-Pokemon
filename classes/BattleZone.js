@@ -1,8 +1,9 @@
 class BattleZone extends Collission{
-    constructor(collsion, mapWidth, player, batlleZone){
+    constructor(collsion, mapWidth, player, batlleZone, transition){
         super(collsion, mapWidth, player, batlleZone)
 
         this.inBattle = false
+        this.transition = transition
     }
     tryBattle(){
 
@@ -12,6 +13,8 @@ class BattleZone extends Collission{
             console.log(random)
             console.log('battle')
             this.inBattle = true
+
+            transition.animateTransition()
         }
     }
 }

@@ -24,7 +24,9 @@ class Collission{
                 if(item != null && item != undefined && item != 0){
                     this.boundaries.push(new Boundary({
                         position: {x: j * height + x, y: i * width + y},
-                        size: {width, height}
+                        size: {width, height},
+                        context: context,
+                        fillStyle: 'transparent'
                     }))
                 }   
             })
