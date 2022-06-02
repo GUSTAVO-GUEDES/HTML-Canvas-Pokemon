@@ -14,6 +14,8 @@ class BattleZone extends Collission{
             console.log('battle')
             this.inBattle = true
 
+            audio.battleTheme()
+
             transition.animateTransition()
         }
     }

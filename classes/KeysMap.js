@@ -8,6 +8,9 @@ class KeysMap{
 
         window.addEventListener('keydown', ({key}) => {
             keys_map.activate(key)
+            
+            if(audio.paused())
+                audio.palletTheme()
         })
         
         window.addEventListener('keyup', ({key}) => {
@@ -24,6 +27,8 @@ class KeysMap{
                         this.battleZone.moveCollision('UP', this.player.speed)
                         this.backgroud.moveSprite('UP', this.player.speed)
                         this.foreground.moveSprite('UP', this.player.speed)
+                    }else{
+                        audio.collision()
                     }      
 
 
@@ -44,7 +49,9 @@ class KeysMap{
                         this.backgroud.moveSprite('LEFT', this.player.speed)
                         this.battleZone.moveCollision('LEFT', this.player.speed)
                         this.foreground.moveSprite('LEFT', this.player.speed)
-                    }
+                    }else{
+                        audio.collision()
+                    }  
 
                     this.player.img_obj.src = './img/Player/playerLeft.png'
                     this.player.moving = true
@@ -63,7 +70,9 @@ class KeysMap{
                         this.backgroud.moveSprite('DOWN', this.player.speed)
                         this.battleZone.moveCollision('DOWN', this.player.speed)
                         this.foreground.moveSprite('DOWN', this.player.speed)
-                    }
+                    }else{
+                        audio.collision()
+                    }  
 
                     this.player.img_obj.src = './img/Player/playerDown.png'
                     this.player.moving = true
@@ -82,7 +91,9 @@ class KeysMap{
                         this.backgroud.moveSprite('RIGHT', this.player.speed)
                         this.battleZone.moveCollision('RIGHT', this.player.speed)
                         this.foreground.moveSprite('RIGHT', this.player.speed)
-                    }
+                    }else{
+                        audio.collision()
+                    }  
                     
                     this.player.img_obj.src = './img/Player/playerRight.png'
                     this.player.moving = true

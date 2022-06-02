@@ -34,6 +34,8 @@ var lastTimestamp = 0
 var lastTimestamp2 = 0
 var TransitionCount = 0
 
+var audio = new AudioClass()
+
 const animate = () =>{
     var timestamp = Date.now()
     var delta = timestamp - lastTimestamp
@@ -70,8 +72,8 @@ const animate = () =>{
 
     if(TransitionCount < transition.transitionBlocks.length-1 && transition.runAnimation){
         
-        if (  delta > 1000 / 120 ) {
-            lastTimestamp2 = timestamp2 - ( delta2 % (1000 / 120) )
+        if (  delta > 1000 / 60 ) {
+            lastTimestamp2 = timestamp2 - ( delta2 % (1000 / 60) )
 
             transition.draw(TransitionCount)
             TransitionCount += 2
